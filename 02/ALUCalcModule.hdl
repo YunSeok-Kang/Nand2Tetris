@@ -1,0 +1,18 @@
+CHIP ALUCalcModule {
+    IN  
+        x[16],
+		y[16],    
+		f,
+		no;
+
+    OUT 
+        out[16]; // 16-bit output
+
+    PARTS:
+		And16(a=x, b=y, out=ra);
+		Add16(a=x, b=y, out=rs);
+		Mux16(a=ra, b=rs, sel=f, out=fout);
+		
+		Not16(in=fout, out=nfout);
+		Mux16(a=fout, b=nfout, sel=no, out=out);
+}

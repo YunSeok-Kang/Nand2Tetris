@@ -1,0 +1,15 @@
+CHIP ALUInputModule {
+    IN  
+        input[16],        
+        z, // zero the input?
+        n; // negate the input?
+
+    OUT 
+        out[16]; // 16-bit output
+
+    PARTS:
+	Not16(in=input, out=nInput);
+	And16(a=input, b[0..15]=false, out=zInput);
+	Not16(in=zInput, out=znInput);
+	Mux4Way16(a=input, b=nInput, c=zInput, d=znInput, sel[1]=z, sel[0]=n, out=out);
+}

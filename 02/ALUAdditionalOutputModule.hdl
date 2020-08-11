@@ -1,0 +1,18 @@
+CHIP ALUAdditionalOutputModule {
+    IN  
+        input[16];
+
+    OUT 
+        zr,    
+		ng;
+
+    PARTS:
+		Or8Way(in=input[0..7], out=or1);
+		Or8Way(in=input[8..15], out=or2);
+		Or(a=or1, b=or2, out=in1);
+		
+		And(a=input[15], b=true, out=in2);
+		
+		DMux4Way(in=true, sel[1]=in1, sel[0]=in2, a=zr, b=tmp1, c=tmp2, d=ng);
+		
+}
